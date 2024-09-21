@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->string('Title');
             $table->foreignId('product_category_id')->nullable()->index();
+            $table->foreignId('id_supplier')->nullable()->index();
             $table->string('image');
             $table->text('description');
             $table->bigInteger('price');
@@ -27,10 +29,20 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        schema::create('supplier', function(Blueprint $table){
+        schema::create('suppliers', function(Blueprint $table){
             $table->id();
             $table->string('supplier_name');
             $table->string('pic_supplier');
+            $table->string( 'alamat_supplier');
+            $table->string('no_hp_pic_supplier');
+            $table->timestamps();
+        });
+
+        schema::create('transaksi_penjualan', function(Blueprint $table){
+            $table->id();
+            $table->foreignId('id_product')->nullable()->index();
+            $table->integer('jumlah_pembelian');
+            $table->string( 'nama_kasir');
             $table->timestamps();
         });
 
